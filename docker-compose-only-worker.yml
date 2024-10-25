@@ -18,9 +18,8 @@ services:
       CELERY_BROKER_URL: "redis://172.23.0.2:6379/0"
       CELERY_RESULT_BACKEND: "redis://172.23.0.2:6379/0"
     networks:
-      - existing-network
+      - e0-kevinstifel_my_network
 
 networks:
-  existing-network:
-    external:
-      name: ayudantia-workers-celery-2023-1_default
+  e0-kevinstifel_my_network:
+    external: true
