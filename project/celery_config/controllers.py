@@ -14,7 +14,7 @@ def obtener_proximos_partidos():
         )
         
         cursor = connection.cursor()
-        cursor.execute('SELECT id, league_id, league_round, home_team_id, away_team_id, odds_values FROM "Fixtures" WHERE status_long = \'Not Started\';')        
+        cursor.execute('SELECT fixture_id, league_id, league_round, home_team_id, away_team_id, odds_values FROM fixtures WHERE status_long = \'Not Started\';')        
         records = cursor.fetchall()
 
         cursor.close()
@@ -46,7 +46,7 @@ def obtener_requests(id_usuario):
         for i in range(len(records)):
             records[i] = list(records[i])
             fixture_id = records[i][1]
-            cursor.execute(f'SELECT league_id, league_round, home_team_id, away_team_id, odds_values, goals_home, goals_away FROM "Fixtures" WHERE id = \'{fixture_id}\' AND home_team_winner IS NOT NULL;')
+            cursor.execute(f'SELECT league_id, league_round, home_team_id, away_team_id, odds_values, goals_home, goals_away FROM fixtures WHERE fixture_id = \'{fixture_id}\' AND home_team_winner IS NOT NULL;')
             fixture = list(cursor.fetchall()[0])
             result = ver_ganador(fixture[-2], fixture[-1])
             fixture = fixture[:-2] + [result]
