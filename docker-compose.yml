@@ -66,5 +66,5 @@ volumes:
 
 networks:
   existing-network:
-    external:
-      name: e0-kevinstifel_my_network
+    external: true
+    name: e0-kevinstifel_my_network
