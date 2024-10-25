@@ -49,7 +49,7 @@ services:
     expose:
       - 5555
     ports:
-      - '5555:5555'
+      - '5556:5555'
     volumes:
       - ./project:/opt/
     depends_on:
