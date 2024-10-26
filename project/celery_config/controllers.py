@@ -66,6 +66,8 @@ def obtener_requests(id_usuario):
         print("Error al conectarse a la base de datos:", error)
         return error
     
+    return "hola"
+    
 
 def ver_ganador(goals_home, goals_away):
     if goals_home > goals_away:
