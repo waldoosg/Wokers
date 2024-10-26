@@ -16,6 +16,7 @@ def read_root():
 @app.get("/job/{id}")
 def get_job(job_id: str):
     job = recommendation.AsyncResult(job_id)
+    print(job)
     return {
         "ready": job.ready(),
         "result": job.result,
