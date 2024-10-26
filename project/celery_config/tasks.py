@@ -6,4 +6,4 @@ import time
 
 @shared_task
 def recommendation(id):
-    return id
+    return mejores_3(id)
