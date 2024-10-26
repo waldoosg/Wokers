@@ -11,4 +11,4 @@ def wait_and_return():
 
 @shared_task
 def recommendation(id_usuario):
-    return mejores_3(id_usuario)
+    return f'{mejores_3(id_usuario)}'
