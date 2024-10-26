@@ -63,8 +63,9 @@ def obtener_requests(id_usuario):
         return records
 
     except (Exception, psycopg2.Error) as error:
-        print("Error al conectarse a la base de datos:", error)
-        return "sdasdw"
+        texto = f"Error al conectarse a la base de datos: {error}"
+        print(texto)
+        return texto
 
     
 
