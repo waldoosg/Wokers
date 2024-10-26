@@ -13,7 +13,7 @@ def read_root():
 
 # https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html
 
-@app.get("/job/{id}")
+@app.get("/job/{job_id}")
 def get_job(job_id: str):
     job = recommendation.AsyncResult(job_id)
     print(job)
