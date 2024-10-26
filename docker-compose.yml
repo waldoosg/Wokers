@@ -4,7 +4,7 @@ services:
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     networks:
-      - existing-network
+      - e0-kevinstifel_my_network
 
   producer:
     build:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - redis-broker
     networks:
-      - existing-network
+      - e0-kevinstifel_my_network
 
   consumer:
     build:
@@ -40,7 +40,7 @@ services:
       CELERY_BROKER_URL: ${CELERY_BROKER_URL}
       CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
     networks:
-      - existing-network
+      - e0-kevinstifel_my_network
 
   dashboard:
     build:
@@ -59,12 +59,11 @@ services:
       CELERY_BROKER_URL: ${CELERY_BROKER_URL}
       CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
     networks:
-      - existing-network
+      - e0-kevinstifel_my_network
 
 volumes:
   postgres_data:
 
 networks:
-  existing-network:
+  e0-kevinstifel_my_network:
     external: true
-    name: e0-kevinstifel_my_network
