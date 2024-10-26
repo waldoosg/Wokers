@@ -64,9 +64,8 @@ def obtener_requests(id_usuario):
 
     except (Exception, psycopg2.Error) as error:
         print("Error al conectarse a la base de datos:", error)
-        return error
-    
-    return "hola"
+        return "sdasdw"
+
     
 
 def ver_ganador(goals_home, goals_away):
