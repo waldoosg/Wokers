@@ -1,6 +1,6 @@
 # celery
 from celery import shared_task
-from celery_config.controllers import mejores_3
+from celery_config.controllers import mejores_3, obtener_requests
 
 import time
 
@@ -11,4 +11,4 @@ def wait_and_return():
 
 @shared_task
 def recommendation(id_usuario):
-    return f'{mejores_3(id_usuario)}'
+    return id_usuario
