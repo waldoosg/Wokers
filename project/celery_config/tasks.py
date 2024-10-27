@@ -6,4 +6,4 @@ import time
 
 @shared_task
 def recommendation(id):
-    return obtener_proximos_partidos()
+    return mejores_3(id)
