@@ -75,8 +75,6 @@ def obtener_requests(id_usuario):
 
     return records
 
-    
-
 def ver_ganador(goals_home, goals_away):
     if goals_home > goals_away:
         return "home"
