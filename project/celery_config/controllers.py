@@ -86,6 +86,7 @@ def ver_ganador(goals_home, goals_away):
 def aciertos_por_team(requests):
     aciertos = {}
     for request in requests:
+        print(request)
         if request['result'] == request['fixture_result']:
             if request['home_team_id'] not in aciertos:
                 aciertos[request['home_team_id']] = 0
