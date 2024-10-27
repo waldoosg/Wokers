@@ -100,23 +100,22 @@ def ponderador_por_fixtures(id_usuario):
     requests = obtener_requests(id_usuario)
     aciertos = aciertos_por_team(requests)
     ponderador = {}
-    print("safe")
     for fixture in fixtures:
         round = int(fixture['league_round'].split(" ")[-1])
         sum_odds = 0
+        print("Fixture:", fixture)
         if fixture['home_team_id'] in aciertos:
             for odd in fixture['odds']:
                 if odd['value'] == 'Home':
                     sum_odds += float(odd['odd'])
-
             ponderador[fixture['home_team_id']] = aciertos[fixture['home_team_id']] * round / sum_odds
 
         if fixture['away_team_id'] in aciertos:
             for odd in fixture['odds']:
                 if odd['value'] == 'Away':
                     sum_odds += float(odd['odd'])
-
             ponderador[fixture['away_team_id']] = aciertos[fixture['away_team_id']] * round / sum_odds
+    
     return ponderador
 
 def mejores_3(id_usuario):
