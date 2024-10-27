@@ -44,14 +44,21 @@ def obtener_requests(id_usuario):
         cursor.execute(f'SELECT user_id, fixture_id, quantity, result  FROM requests WHERE user_id = \'{id_usuario}\' AND group_id = \'19\';')        
         records = cursor.fetchall()
 
+        errores = []
         for i in range(len(records)):
-            records[i] = list(records[i])
-            fixture_id = records[i][1]
-            cursor.execute(f'SELECT league_id, league_round, home_team_id, away_team_id, odds, goals_home, goals_away FROM fixtures WHERE fixture_id = \'{fixture_id}\' AND home_team_winner IS NOT NULL;')
-            fixture = list(cursor.fetchall()[0])
-            result = ver_ganador(fixture[-2], fixture[-1])
-            fixture = fixture[:-2] + [result]
-            records[i] += fixture
+            try:
+                records[i] = list(records[i])
+                fixture_id = records[i][1]
+                cursor.execute(f'SELECT league_id, league_round, home_team_id, away_team_id, odds, goals_home, goals_away FROM fixtures WHERE fixture_id = \'{fixture_id}\' AND home_team_winner IS NOT NULL;')
+                fixture = list(cursor.fetchall()[0])
+                result = ver_ganador(fixture[-2], fixture[-1])
+                fixture = fixture[:-2] + [result]
+                records[i] += fixture
+            except:
+                errores.append(i)
+
+        for error in errores:
+            records.pop(error)
 
         cursor.close()
         connection.close()
