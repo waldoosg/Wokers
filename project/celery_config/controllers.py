@@ -105,16 +105,16 @@ def ponderador_por_fixtures(id_usuario):
         sum_odds = 0
         if fixture['home_team_id'] in aciertos:
             print("entré 1")
-            print(fixture['odds'], type(fixture['odds']))
-            for odd in fixture['odds']:
+            print(fixture['odds'][0]['values'], type(fixture['odds']))
+            for odd in fixture['odds'][0]['values']:
                 if odd['value'] == 'Home':
                     sum_odds += float(odd['odd'])
             ponderador[fixture['home_team_id']] = aciertos[fixture['home_team_id']] * round / sum_odds
 
         if fixture['away_team_id'] in aciertos:
             print("entré 2")
-            print(fixture['odds'], type(fixture['odds']))
-            for odd in fixture['odds']:
+            print(fixture['odds'][0]['values'], type(fixture['odds']))
+            for odd in fixture['odds'][0]['values']:
                 if odd['value'] == 'Away':
                     sum_odds += float(odd['odd'])
             ponderador[fixture['away_team_id']] = aciertos[fixture['away_team_id']] * round / sum_odds
