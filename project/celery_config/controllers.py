@@ -49,7 +49,7 @@ def obtener_requests(id_usuario):
             try:
                 records[i] = list(records[i])
                 fixture_id = records[i][1]
-                cursor.execute(f' WHERE fixture_id = {fixture_id} AND home_team_winner IS NOT NULL;')
+                cursor.execute(f' WHERE fixture_id = "{fixture_id}" AND home_team_winner IS NOT NULL;')
                 fixture = list(cursor.fetchall()[0])
                 result = ver_ganador(fixture[-2], fixture[-1])
                 fixture = fixture[:-2] + [result]
