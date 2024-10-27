@@ -57,6 +57,7 @@ def obtener_requests(id_usuario):
             except:
                 errores.append(i)
 
+        errores = sorted(errores, reverse=True)
         for error in errores:
             records.pop(error)
 
