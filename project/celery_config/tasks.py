@@ -6,5 +6,5 @@ import time
 
 @shared_task
 def recommendation(id):
-    return ponderador_por_fixtures(id)
+    return mejores_3(id)
 
