@@ -1,6 +1,7 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
+import json
 
 def obtener_proximos_partidos():
     load_dotenv()
@@ -54,7 +55,9 @@ def obtener_requests(id_usuario):
 
 
         for i in range(len(records)):
-            keys = ['user_id', 'fixture_id', 'quantity', 'result', 'league_id', 'league_round', 'home_team_id', 'away_team_id', 'odds_values', 'fixture_result']
+            keys = ['user_id', 'fixture_id', 'quantity', 'result', 'league_id', 'league_round', 'home_team_id', 'away_team_id', 'odds', 'fixture_result']
+            odds = json.loads(records[i]['odds'])
+            records[i]['odds_values'] = odds['values']
             records[i] = dict(zip(keys, records[i]))
 
         cursor.close()
