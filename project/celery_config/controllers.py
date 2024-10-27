@@ -59,7 +59,7 @@ def obtener_requests(id_usuario):
 
         errores = sorted(errores, reverse=True)
         for error in errores:
-            records.pop(error)
+            print("No se ha encontrado:", records.pop(error))
 
         cursor.close()
         connection.close()
