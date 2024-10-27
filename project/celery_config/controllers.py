@@ -53,10 +53,13 @@ def obtener_requests(id_usuario):
             fixture = fixture[:-2] + [result]
             records[i] += fixture
 
+        print("error 1")
 
         for i in range(len(records)):
             keys = ['user_id', 'fixture_id', 'quantity', 'result', 'league_id', 'league_round', 'home_team_id', 'away_team_id', 'odds', 'fixture_result']
             records[i] = dict(zip(keys, records[i]))
+
+        print("error 2")
 
         cursor.close()
         connection.close()
