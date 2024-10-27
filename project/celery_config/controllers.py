@@ -15,14 +15,14 @@ def obtener_proximos_partidos():
         )
         
         cursor = connection.cursor()
-        cursor.execute('SELECT fixture_id, league_id, league_round, home_team_id, away_team_id, odds_values FROM fixtures WHERE status_long = \'Not Started\';')        
+        cursor.execute('SELECT fixture_id, league_id, league_round, home_team_id, away_team_id, odds FROM fixtures WHERE status_long = \'Not Started\';')        
         records = cursor.fetchall()
 
         cursor.close()
         connection.close()
         print("Conexión a PostgreSQL cerrada")
         for i in range(len(records)):
-            keys = ['id', 'league_id', 'league_round', 'home_team_id', 'away_team_id', 'odds_values']
+            keys = ['id', 'league_id', 'league_round', 'home_team_id', 'away_team_id', 'odds']
             records[i] = dict(zip(keys, records[i]))
         return records
 
@@ -47,7 +47,7 @@ def obtener_requests(id_usuario):
         for i in range(len(records)):
             records[i] = list(records[i])
             fixture_id = records[i][1]
-            cursor.execute(f'SELECT league_id, league_round, home_team_id, away_team_id, odds_values, goals_home, goals_away FROM fixtures WHERE fixture_id = \'{fixture_id}\' AND home_team_winner IS NOT NULL;')
+            cursor.execute(f'SELECT league_id, league_round, home_team_id, away_team_id, odds, goals_home, goals_away FROM fixtures WHERE fixture_id = \'{fixture_id}\' AND home_team_winner IS NOT NULL;')
             fixture = list(cursor.fetchall()[0])
             result = ver_ganador(fixture[-2], fixture[-1])
             fixture = fixture[:-2] + [result]
@@ -56,8 +56,6 @@ def obtener_requests(id_usuario):
 
         for i in range(len(records)):
             keys = ['user_id', 'fixture_id', 'quantity', 'result', 'league_id', 'league_round', 'home_team_id', 'away_team_id', 'odds', 'fixture_result']
-            odds = json.loads(records[i]['odds'])
-            records[i]['odds_values'] = odds['values']
             records[i] = dict(zip(keys, records[i]))
 
         cursor.close()
@@ -100,14 +98,14 @@ def ponderador_por_fixtures(id_usuario):
         round = int(fixture['league_round'].split(" ")[-1])
         sum_odds = 0
         if fixture['home_team_id'] in aciertos:
-            for odd in fixture['odds_values']:
+            for odd in fixture['odds']:
                 if odd['value'] == 'Home':
                     sum_odds += float(odd['odd'])
 
             ponderador[fixture['home_team_id']] = aciertos[fixture['home_team_id']] * round / sum_odds
 
         if fixture['away_team_id'] in aciertos:
-            for odd in fixture['odds_values']:
+            for odd in fixture['odds']:
                 if odd['value'] == 'Away':
                     sum_odds += float(odd['odd'])
 
@@ -133,7 +131,7 @@ if __name__ == "__main__":
         print(f"League Round: {request['league_round']}")
         print(f"Home Team ID: {request['home_team_id']}")
         print(f"Away Team ID: {request['away_team_id']}")
-        print(f"Odds Values: {request['odds_values']}")
+        print(f"Odds Values: {request['odds']}")
         print(f"Fixture Result: {request['fixture_result']}")
         print("------------------------")
 
@@ -145,7 +143,7 @@ if __name__ == "__main__":
         print("League Round:", partido['league_round'])
         print("Home Team ID:", partido['home_team_id'])
         print("Away Team ID:", partido['away_team_id'])
-        print("Odds Values:", partido['odds_values'])
+        print("Odds Values:", partido['odds'])
         print("------------------------")
     
     aciertos = aciertos_por_team(requests)
