@@ -1,7 +1,6 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
-import json
 
 def obtener_proximos_partidos():
     load_dotenv()

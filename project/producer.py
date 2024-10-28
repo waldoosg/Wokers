@@ -11,8 +11,6 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello World, this is a route from the producer or job master"}
 
-# https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html
-
 @app.get("/job/{job_id}")
 def get_job(job_id: str):
     job = recommendation.AsyncResult(job_id)

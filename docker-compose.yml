@@ -5,6 +5,10 @@ services:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     networks:
       - e0-kevinstifel_my_network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   producer:
     build:
@@ -24,12 +28,19 @@ services:
       - redis-broker
     networks:
       - e0-kevinstifel_my_network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   consumer:
     build:
       context: ./project
       dockerfile: Dockerfile
     deploy:
+      resources:
+        limits:
+          memory: 512M
       replicas: 2
     command: celery -A consumer.celery_app worker --loglevel=INFO --purge --concurrency=1
     volumes:
@@ -67,6 +78,10 @@ services:
       CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
     networks:
       - e0-kevinstifel_my_network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
 volumes:
   postgres_data:
