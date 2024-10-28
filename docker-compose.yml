@@ -4,7 +4,8 @@ services:
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     networks:
-      - e0-kevinstifel_my_network
+      e0-kevinstifel_my_network:
+        ipv4_address: 192.168.100.6
     deploy:
       resources:
         limits:
@@ -27,7 +28,8 @@ services:
     depends_on:
       - redis-broker
     networks:
-      - e0-kevinstifel_my_network
+      e0-kevinstifel_my_network:
+        ipv4_address: 192.168.100.7
     deploy:
       resources:
         limits:
@@ -56,7 +58,8 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_PORT: ${DB_PORT}
     networks:
-      - e0-kevinstifel_my_network
+      e0-kevinstifel_my_network:
+        ipv4_address: 192.168.100.8
 
 volumes:
   postgres_data:
