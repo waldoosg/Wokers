@@ -13,10 +13,18 @@ def guardar_trabajo(id_usuario, job_id, response):
             password=os.getenv("DB_PASSWORD"),
         )
         cursor = connection.cursor()
+
         if id_usuario == None:
-            cursor.execute(f"UPDATE recommendations SET response = '{response}' WHERE job_id = '{job_id}';")
+            status = True
+            cursor.execute(
+                "UPDATE recommendations SET response = %s, status = %s WHERE job_id = %s;",
+                (response, status, job_id)
+            )
         else:
-            cursor.execute(f"INSERT INTO recommendations (id_usuario, job_id, response) VALUES ('{id_usuario}', '{job_id}', '{response}');")
+            status = False
+            cursor.execute(
+               "INSERT INTO recommendations (user_id, job_id, status, response) VALUES (%s, %s, %s, %s);",
+                (id_usuario, job_id, status, response))
         connection.commit()
         cursor.close()
         connection.close()
