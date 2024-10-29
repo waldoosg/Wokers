@@ -151,6 +151,7 @@ def ponderador_por_fixtures(id_usuario):
 def mejores_3(id_usuario):
     print(f"Calculando mejores 3 para el usuario {id_usuario}")
     ponderadores = ponderador_por_fixtures(id_usuario)
+    print(ponderadores)
     mejores = sorted(ponderadores.items(), key=lambda x: x[1], reverse=True)[:3]
     mejores_ids = [mejor[0] for mejor in mejores]
     load_dotenv()
