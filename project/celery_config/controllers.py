@@ -17,8 +17,8 @@ def guardar_trabajo(id_usuario, job_id, response):
         if id_usuario == None:
             status = True
             cursor.execute(
-                "UPDATE recommendations SET response = %s::jsonb, status = %s WHERE job_id = %s;",
-                (response, status, job_id)
+                "UPDATE recommendations SET response = jsonb_build_array(%s,  %s,  %s), status = %s WHERE job_id = %s;",
+                (response[0], response[1], response[2], status, job_id)
             )
         else:
             status = False
