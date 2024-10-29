@@ -2,6 +2,27 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 
+def guardar_trabajo(id_usuario, job_id, response):
+    load_dotenv()
+    try:
+        connection = psycopg2.connect(
+            host=os.getenv("DB_HOST"),
+            port=os.getenv("DB_PORT"),
+            database=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+        )
+        cursor = connection.cursor()
+        if id_usuario == None:
+            cursor.execute(f"UPDATE recommendations SET response = '{response}' WHERE job_id = '{job_id}';")
+        else:
+            cursor.execute(f"INSERT INTO recommendations (id_usuario, job_id, response) VALUES ('{id_usuario}', '{job_id}', '{response}');")
+        connection.commit()
+        cursor.close()
+        connection.close()
+    except (Exception, psycopg2.Error) as error:
+        print("Error al conectarse a la base de datos:", error)
+
 def obtener_proximos_partidos():
     load_dotenv()
     try:
@@ -124,6 +145,7 @@ def mejores_3(id_usuario):
     ponderadores = ponderador_por_fixtures(id_usuario)
     mejores = sorted(ponderadores.items(), key=lambda x: x[1], reverse=True)[:3]
     mejores_ids = [mejor[0] for mejor in mejores]
+    load_dotenv()
     return mejores_ids
 
 if __name__ == "__main__":
