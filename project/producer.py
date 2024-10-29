@@ -16,7 +16,7 @@ def read_root():
 def get_job(job_id: str):
     job = recommendation.AsyncResult(job_id)
     print(job)
-    guardar_trabajo(None, job.id, [])
+    guardar_trabajo(None, job.id, job.result)
     return {
         "ready": job.ready(),
         "result": job.result,
