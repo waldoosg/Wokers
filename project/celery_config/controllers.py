@@ -123,29 +123,32 @@ def aciertos_por_team(requests):
             aciertos[request['away_team_id']] += 1 * request['quantity']
     return aciertos
 
+
 def ponderador_por_fixtures(id_usuario):
     fixtures = obtener_proximos_partidos()
     requests = obtener_requests(id_usuario)
     aciertos = aciertos_por_team(requests)
-    ponderador = {}
+    ponderadores = {}
     for fixture in fixtures:
         round = int(fixture['league_round'].split(" ")[-1])
         sum_odds = 0
+        ponderador = 0
         if fixture['odds'][0]['name'] != 'No odd':
             if fixture['home_team_id'] in aciertos:
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Home':
                         sum_odds += float(odd['odd'])
-                ponderador[fixture['home_team_id']] = aciertos[fixture['home_team_id']] * round / sum_odds
+                ponderador += aciertos[fixture['home_team_id']] * round / sum_odds
 
             if fixture['away_team_id'] in aciertos:
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Away':
                         sum_odds += float(odd['odd'])
-                ponderador[fixture['away_team_id']] = aciertos[fixture['away_team_id']] * round / sum_odds
+                ponderador += aciertos[fixture['away_team_id']] * round / sum_odds
         else:
             print(f"No hay odds para la fixture {fixture['id']}")
-        
+        ponderadores[fixture['fixture_id']] = ponderador
+    print(ponderador)
     return ponderador
 
 def mejores_3(id_usuario):
