@@ -141,16 +141,19 @@ def ponderador_por_fixtures(id_usuario):
             if fixture['home_team_id'] in list(aciertos.keys()):
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Home':
+                        print(f"Fixture {fixture['id']}, Home: {aciertos[fixture['home_team_id']]} * {round} / {odd['odd']}")
                         ponderador += aciertos[fixture['home_team_id']] * round / float(odd['odd'])
 
             elif fixture['away_team_id'] in list(aciertos.keys()):
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Away':
+                        print(f"Fixture {fixture['id']}, Away: {aciertos[fixture['away_team_id']]} * {round} / {odd['odd']}")
                         ponderador += aciertos[fixture['away_team_id']] * round / float(odd['odd'])
 
             elif fixture['home_team_id'] in list(aciertos.keys()) and fixture['away_team_id'] in list(aciertos.keys()):
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Draw':
+                        print(f"Fixture {fixture['id']}, Draw: {aciertos[fixture['home_team_id']] + aciertos[fixture['away_team_id']]} * {round} / {odd['odd']}")
                         ponderador += (aciertos[fixture['home_team_id']] + aciertos[fixture['away_team_id']]) * round / float(odd['odd'])
         else:
             print(f"No hay odds para la fixture {fixture['id']}")
