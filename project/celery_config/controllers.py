@@ -141,30 +141,28 @@ def ponderador_por_fixtures(id_usuario):
             if fixture['home_team_id'] in list(aciertos.keys()):
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Home':
-                        print(f"Fixture {fixture['id']}, Home: {aciertos[fixture['home_team_id']]} * {round} / {odd['odd']}")
+                        # print(f"Fixture {fixture['id']}, Home: {aciertos[fixture['home_team_id']]} * {round} / {odd['odd']}")
                         ponderador += aciertos[fixture['home_team_id']] * round / float(odd['odd'])
 
             elif fixture['away_team_id'] in list(aciertos.keys()):
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Away':
-                        print(f"Fixture {fixture['id']}, Away: {aciertos[fixture['away_team_id']]} * {round} / {odd['odd']}")
+                        # print(f"Fixture {fixture['id']}, Away: {aciertos[fixture['away_team_id']]} * {round} / {odd['odd']}")
                         ponderador += aciertos[fixture['away_team_id']] * round / float(odd['odd'])
 
             elif fixture['home_team_id'] in list(aciertos.keys()) and fixture['away_team_id'] in list(aciertos.keys()):
                 for odd in fixture['odds'][0]['values']:
                     if odd['value'] == 'Draw':
-                        print(f"Fixture {fixture['id']}, Draw: {aciertos[fixture['home_team_id']] + aciertos[fixture['away_team_id']]} * {round} / {odd['odd']}")
+                        # print(f"Fixture {fixture['id']}, Draw: {aciertos[fixture['home_team_id']] + aciertos[fixture['away_team_id']]} * {round} / {odd['odd']}")
                         ponderador += (aciertos[fixture['home_team_id']] + aciertos[fixture['away_team_id']]) * round / float(odd['odd'])
         else:
             print(f"No hay odds para la fixture {fixture['id']}")
         ponderadores[fixture['id']] = ponderador
-    print(ponderadores)
     return ponderadores
 
 def mejores_3(id_usuario):
     print(f"Calculando mejores 3 para el usuario {id_usuario}")
     ponderadores = ponderador_por_fixtures(id_usuario)
-    print(ponderadores)
     mejores = sorted(ponderadores.items(), key=lambda x: x[1], reverse=True)[:3]
     mejores_ids = [mejor[0] for mejor in mejores]
     load_dotenv()
