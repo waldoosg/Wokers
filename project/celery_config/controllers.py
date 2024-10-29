@@ -121,6 +121,11 @@ def aciertos_por_team(requests):
                 aciertos[request['away_team_id']] = 0
             aciertos[request['home_team_id']] += 1 * request['quantity']
             aciertos[request['away_team_id']] += 1 * request['quantity']
+        else:
+            if request['home_team_id'] not in aciertos.keys():
+                aciertos[request['home_team_id']] = 0
+            if request['away_team_id'] not in aciertos.keys():
+                aciertos[request['away_team_id']] = 0
     return aciertos
 
 
