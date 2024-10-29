@@ -161,7 +161,7 @@ def ponderador_por_fixtures(id_usuario):
                         ponderador += (aciertos[fixture['home_team_id']] + aciertos[fixture['away_team_id']]) * round / float(odd['odd'])
         else:
             print(f"No hay odds para la fixture {fixture['id']}")
-        ponderadores[fixture['fixture_id']] = ponderador
+        ponderadores[fixture['id']] = ponderador
     print(ponderador)
     return ponderador
 
