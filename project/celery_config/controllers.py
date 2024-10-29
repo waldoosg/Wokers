@@ -139,7 +139,7 @@ def ponderador_por_fixtures(id_usuario):
         ponderador = 0
         if fixture['odds'][0]['name'] != 'No odd':
             print("if 1")
-            print(fixture['home_team_id'], fixture['away_team_id'], aciertos.keys())
+            print(fixture['home_team_id'], fixture['away_team_id'], list(aciertos.keys()))
             if fixture['home_team_id'] in aciertos.keys():
                 print("if 2")
 
