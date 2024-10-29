@@ -3,7 +3,8 @@ from fastapi import FastAPI
 from models import Id
 
 # celery
-from celery_config.tasks import recommendation, guardar_recomendacion
+from celery_config.tasks import recommendation
+from celery_config.controllers import guardar_recomendacion
 
 app = FastAPI()
 
